@@ -141,9 +141,13 @@ class AdminController extends Controller {
         data: result,
         retcode: 0,
       };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: [],
+        retcode: -1,
+      };
     }
-
-
   }
 
   // {
