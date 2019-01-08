@@ -1,18 +1,18 @@
 'use strict';
 
 const Service = require('egg').Service;
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
 class AdminService extends Service {
   //  获取hash
-  async getHash(orgin) {
+  /* async getHash(orgin) {
     //  生成salt的迭代次数
     const saltRounds = 10;
     //  随机生成salt
     const salt = bcrypt.genSaltSync(saltRounds);
     //  获取hash值
     return bcrypt.hashSync(orgin, salt);
-  }
+  } */
 
   // ------------------------------------------------------
 
@@ -33,7 +33,8 @@ class AdminService extends Service {
     });
 
     return {
-      result: bcrypt.compareSync(pass, result.password),
+      // result: bcrypt.compareSync(pass, result.password),
+      result: pass === result.password,
       name: result.name,
     };
   }
@@ -57,12 +58,13 @@ class AdminService extends Service {
     } = this.ctx.request.body;
 
     for (let i = 0; i < tableResults.length; i++) {
-      const hashPass = await this.getHash(tableResults[i].password);
+      // const hashPass = await this.getHash(tableResults[i].password);
 
       try {
         await this.app.mysql.insert(role, {
           id: tableResults[i].id,
-          password: hashPass,
+          // password: hashPass,
+          password: tableResults[i].password,
           name: tableResults[i].name,
         });
       } catch (error) {
