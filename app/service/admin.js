@@ -2,19 +2,8 @@
 
 const Service = require('egg').Service;
 const crypto = require('crypto');
-// const bcrypt = require('bcrypt');
 
 class AdminService extends Service {
-  //  获取hash
-  /* async getHash(orgin) {
-    //  生成salt的迭代次数
-    const saltRounds = 10;
-    //  随机生成salt
-    const salt = bcrypt.genSaltSync(saltRounds);
-    //  获取hash值
-    return bcrypt.hashSync(orgin, salt);
-  } */
-
   // 获取MD5加密
   async getMD5(password) {
     const md5 = crypto.createHash('md5');
