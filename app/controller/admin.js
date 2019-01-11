@@ -3,6 +3,8 @@
 const Controller = require('egg').Controller;
 
 class AdminController extends Controller {
+
+  // 登录
   async login() {
     //  获取ctx 和 service
     const {
@@ -48,6 +50,109 @@ class AdminController extends Controller {
     }
   }
 
+  // !! 用户管理-----------------------------
+
+  //  用户管理-批量添加
+  async uploadResult() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const {
+      tableTitle,
+      tableResults,
+      role,
+    } = ctx.request.body;
+
+    // console.log(tableTitle);
+    // console.log(tableResults);
+    // console.log(role);
+
+    // JSON.parse(tableTitle).forEach(elem => {
+
+    let result;
+    if (role === 'student') {
+      result = await service.admin.studentAdd();
+    } else if (role === 'teacher') {
+      result = await service.admin.teacherAdd();
+    } else {
+      result = await service.admin.adminAdd();
+    }
+    // console.log(result);
+    // console.log(111111);
+    if (result === 'ok') {
+      ctx.body = {
+        msg: 'ok',
+        data: {},
+        retcode: 0,
+      };
+    } else if (result === 'name') {
+      ctx.body = {
+        msg: '名字长度不规范',
+        data: {},
+        retcode: 1002,
+      };
+    } else {
+      ctx.body = {
+        msg: result.code,
+        data: {},
+        retcode: 1002,
+      };
+    }
+  }
+
+  // 用户管理-获取当前分类的所有信息
+  async getAllData() {
+    const {
+      ctx,
+      service,
+    } = this;
+    const result = await service.admin.getAllData(ctx.query.role);
+    // console.log(result);
+
+    if (result) {
+      ctx.body = {
+        msg: 'ok',
+        data: result,
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: [],
+        retcode: -1,
+      };
+    }
+  }
+
+  //  修改用户信息
+  async editUser() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+
+    const result = await service.admin.editUser(data);
+    console.log(result);
+
+    if (result.affectedRows !== 0) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+  }
+
   // 临时添加用户
   async tmpAdd() {
     const {
@@ -77,86 +182,7 @@ class AdminController extends Controller {
     }
   }
 
-
-  // 处理管理后台添加
-  async uploadResult() {
-    const {
-      ctx,
-      service,
-    } = this;
-
-    const {
-      tableTitle,
-      tableResults,
-      role,
-    } = ctx.request.body;
-
-    // console.log(tableTitle);
-    // console.log(tableResults);
-    // console.log(role);
-
-    // JSON.parse(tableTitle).forEach(elem => {
-    tableResults.forEach(elem => {
-      console.log(elem);
-      console.log(typeof elem);
-    });
-
-    let result;
-    if (role === 'student') {
-      result = await service.admin.studentAdd();
-    } else if (role === 'teacher') {
-      result = await service.admin.teacherAdd();
-    } else {
-      result = await service.admin.adminAdd();
-    }
-    // console.log(result);
-    // console.log(111111);
-    if (result === 'ok') {
-      ctx.body = {
-        msg: 'ok',
-        data: {},
-        retcode: 0,
-      };
-    } else {
-      ctx.body = {
-        msg: result.code,
-        data: {},
-        retcode: 1001,
-      };
-    }
-  }
-
-  // 获取当前分类的所有信息
-  async getAllData() {
-    const {
-      ctx,
-      service,
-    } = this;
-    const result = await service.admin.getAllData(ctx.query.role);
-    console.log(result);
-
-    if (result) {
-      ctx.body = {
-        msg: 'ok',
-        data: result,
-        retcode: 0,
-      };
-    } else {
-      ctx.body = {
-        msg: 'error',
-        data: [],
-        retcode: -1,
-      };
-    }
-  }
-
-  // {
-  //   ctx.body = {
-  //     msg: 'ok',
-  //     data: {},
-  //     retcode: 0,
-  //   };
-  // }
+  // !! 基本信息管理-----------------------------
 }
 
 

@@ -26,6 +26,8 @@ module.exports = app => {
 
   router.get('/admin/getAllData', controller.admin.getAllData);
 
+  //  编辑用户
+  router.post('/admin/editUser', controller.admin.editUser);
 
   // ! 以下是用户端接口（学生）
 

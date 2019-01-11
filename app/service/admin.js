@@ -10,7 +10,7 @@ class AdminService extends Service {
     return md5.update(password).digest('hex');
   }
 
-  // ------------------------------------------------------
+  // !! 登录--------------------------------
 
   //  登录，检查用户名
   async checkUser(username, identity) {
@@ -34,6 +34,7 @@ class AdminService extends Service {
     };
   }
 
+
   //  添加用户
   async tmpAdd(username, pass, identity) {
     pass = await this.getMD5(pass);
@@ -44,8 +45,6 @@ class AdminService extends Service {
     return result;
   }
 
-  // todo 账户添加----------------------------------------
-  // 学生账户的添加
   async studentAdd() {
     const {
       tableResults,
@@ -53,6 +52,11 @@ class AdminService extends Service {
     } = this.ctx.request.body;
 
     for (let i = 0; i < tableResults.length; i++) {
+
+      if (tableResults[i].name < 2 || tableResults[i].name > 10) {
+        // 名字长度不正确
+        return 'name';
+      }
 
       try {
         await this.app.mysql.insert(role, {
@@ -88,8 +92,6 @@ class AdminService extends Service {
     });
     return result;
   }
-
-  //  todo 查询各类表的所有数据
   // 获取表中的信息
   async getAllData(role) {
     try {
@@ -98,6 +100,15 @@ class AdminService extends Service {
     } catch (error) {
       return error;
     }
+  }
+
+  async editUser(userData) {
+    //  需要更新的数据
+    const row = userData.data;
+    const role = userData.role;
+    // 更新数据
+    const result = await this.app.mysql.update(role, row);
+    return result;
   }
 }
 
