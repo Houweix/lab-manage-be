@@ -104,7 +104,8 @@ class AdminService extends Service {
 
   async editUser(userData) {
     //  需要更新的数据
-    const row = userData.data;
+    const row = userData.editData;
+    console.log(row);
     const role = userData.role;
     // 更新数据
     const result = await this.app.mysql.update(role, row);

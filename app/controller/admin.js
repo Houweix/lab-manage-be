@@ -134,6 +134,7 @@ class AdminController extends Controller {
     } = this;
 
     const data = ctx.request.body;
+    console.log(data);
 
     const result = await service.admin.editUser(data);
     console.log(result);
