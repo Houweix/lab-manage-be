@@ -29,6 +29,9 @@ module.exports = app => {
   //  编辑用户
   router.post('/admin/editUser', controller.admin.editUser);
 
+  //  搜索用户
+  router.post('/admin/searchUser', controller.admin.searchUser);
+
   // ! 以下是用户端接口（学生）
 
 

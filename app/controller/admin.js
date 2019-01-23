@@ -154,6 +154,34 @@ class AdminController extends Controller {
     }
   }
 
+  // 搜索用户 by name
+  async searchUser() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log(data);
+
+    const result = await service.admin.editUser(data);
+    console.log(result);
+
+    if (result.affectedRows !== 0) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+  }
+
   // 临时添加用户
   async tmpAdd() {
     const {
