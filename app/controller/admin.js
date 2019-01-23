@@ -3,7 +3,6 @@
 const Controller = require('egg').Controller;
 
 class AdminController extends Controller {
-
   // 登录
   async login() {
     //  获取ctx 和 service
@@ -29,7 +28,11 @@ class AdminController extends Controller {
       };
       return;
     }
-    const userinfo2 = await service.admin.checkUserInfo(username, password, identity);
+    const userinfo2 = await service.admin.checkUserInfo(
+      username,
+      password,
+      identity
+    );
 
     //  密码不正确
     if (!userinfo2.result) {
@@ -162,12 +165,27 @@ class AdminController extends Controller {
     } = this;
 
     const data = ctx.request.body;
+    console.log('传来的数据：------------------------');
     console.log(data);
 
-    const result = await service.admin.editUser(data);
+    const result = await service.admin.searchUser(data);
     console.log(result);
 
-    if (result.affectedRows !== 0) {
+    if (result) {
+      ctx.body = {
+        msg: 'ok',
+        data: [ result ],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+
+    /*  if (result.affectedRows !== 0) {
       ctx.body = {
         msg: 'ok',
         data: [],
@@ -179,7 +197,7 @@ class AdminController extends Controller {
         data: result,
         retcode: -1,
       };
-    }
+    }  */
   }
 
   // 临时添加用户
@@ -213,6 +231,5 @@ class AdminController extends Controller {
 
   // !! 基本信息管理-----------------------------
 }
-
 
 module.exports = AdminController;

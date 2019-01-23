@@ -29,11 +29,10 @@ class AdminService extends Service {
     });
 
     return {
-      result: result.password === await this.getMD5(pass),
+      result: result.password === (await this.getMD5(pass)),
       name: result.name,
     };
   }
-
 
   //  添加用户
   async tmpAdd(username, pass, identity) {
@@ -52,7 +51,6 @@ class AdminService extends Service {
     } = this.ctx.request.body;
 
     for (let i = 0; i < tableResults.length; i++) {
-
       if (tableResults[i].name < 2 || tableResults[i].name > 10) {
         // 名字长度不正确
         return 'name';
@@ -74,14 +72,14 @@ class AdminService extends Service {
   }
 
   // 教师账户的添加
-  async teacherAdd() {
+  /*   async teacherAdd() {
     pass = await this.getHash(pass);
     const result = await this.app.mysql.insert(identity, {
       id: username,
       password: pass,
     });
     return result;
-  }
+  } */
 
   // 管理员账户的添加
   async adminAdd() {
@@ -101,7 +99,7 @@ class AdminService extends Service {
       return error;
     }
   }
-
+  //  编辑用户信息
   async editUser(userData) {
     //  需要更新的数据
     const row = userData.editData;
@@ -109,6 +107,19 @@ class AdminService extends Service {
     const role = userData.role;
     // 更新数据
     const result = await this.app.mysql.update(role, row);
+    return result;
+  }
+
+  // 搜索用户 by name
+  async searchUser(userData) {
+    const {
+      role,
+      name,
+    } = userData;
+
+    const result = await this.app.mysql.get(role, {
+      name,
+    });
     return result;
   }
 }
