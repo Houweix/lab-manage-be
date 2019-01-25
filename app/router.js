@@ -32,6 +32,9 @@ module.exports = app => {
   //  搜索用户
   router.post('/admin/searchUser', controller.admin.searchUser);
 
+  // 添加一条用户
+  router.post('/admin/addUser', controller.admin.addUser);
+
   // ! 以下是用户端接口（学生）
 
 

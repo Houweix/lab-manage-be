@@ -10,6 +10,32 @@ class AdminService extends Service {
     return md5.update(password).digest('hex');
   }
 
+
+  // 根据角色获取初始id
+  async getInitId(role) {
+    // 设置初始插入id
+    const roleMap = [{
+      name: 'student',
+      id: '100000',
+    },
+    {
+      name: 'teacher',
+      id: '200000',
+    },
+    {
+      name: 'admin',
+      id: '300000',
+    },
+    ];
+
+    //   寻找对象
+    const finded = roleMap.find(elem => {
+      return elem.name === role;
+    });
+
+    return finded.id;
+  }
+
   // !! 登录--------------------------------
 
   //  登录，检查用户名
@@ -50,18 +76,55 @@ class AdminService extends Service {
       role,
     } = this.ctx.request.body;
 
-    for (let i = 0; i < tableResults.length; i++) {
+
+    const search = await this.app.mysql.select(role, {
+      orders: [
+        [ 'id', 'desc' ],
+      ],
+      limit: 1,
+    });
+
+    //  当前表为空
+    if (!search[0].id) {
+      const initId = await this.getInitId(role);
+      tableResults[0].id = initId;
+    } else {
+      //  不为空
+      tableResults[0].id = parseInt(search[0].id) + 1;
+    }
+
+
+    //  插入第一条
+    await this.app.mysql.insert(role, {
+      id: tableResults[0].id,
+      // password: hashPass,
+      password: await this.getMD5(tableResults[0].password),
+      name: tableResults[0].name,
+      sex: tableResults[0].sex,
+    });
+
+
+    //  插入其他的
+    for (let i = 1; i < tableResults.length; i++) {
       if (tableResults[i].name < 2 || tableResults[i].name > 10) {
         // 名字长度不正确
         return 'name';
       }
 
+      const search = await this.app.mysql.select(role, {
+        orders: [
+          [ 'id', 'desc' ],
+        ],
+        limit: 1,
+      });
+
       try {
         await this.app.mysql.insert(role, {
-          id: tableResults[i].id,
+          id: parseInt(search[0].id) + 1,
           // password: hashPass,
           password: await this.getMD5(tableResults[i].password),
           name: tableResults[i].name,
+          sex: tableResults[0].sex,
         });
       } catch (error) {
         return error;
@@ -122,6 +185,42 @@ class AdminService extends Service {
     });
     return result;
   }
+
+  //  统一的添加用户
+  async addUser(data) {
+    const {
+      role,
+      userData,
+    } = data;
+
+    const tuserData = JSON.parse(JSON.stringify(userData));
+
+    const md5 = await this.getMD5(tuserData.password);
+    tuserData.password = md5;
+
+
+    const search = await this.app.mysql.select(role, {
+      orders: [
+        [ 'id', 'desc' ],
+      ],
+      limit: 1,
+    });
+
+    //  当前表为空
+    if (!search[0].id) {
+      const initId = await this.getInitId(role);
+      tuserData.id = initId;
+    } else {
+      //  不为空
+      tuserData.id = parseInt(search[0].id) + 1;
+    }
+
+    const result = await this.app.mysql.insert(role, tuserData);
+    return result;
+  }
+
+
+  // 添加一条用户信息
 }
 
 module.exports = AdminService;

@@ -200,6 +200,7 @@ class AdminController extends Controller {
     }  */
   }
 
+
   // 临时添加用户
   async tmpAdd() {
     const {
@@ -227,6 +228,52 @@ class AdminController extends Controller {
         retcode: -100,
       };
     }
+  }
+
+
+  // todo 统一的添加单条用户
+  async addUser() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log('传来的数据：------------------------');
+    console.log(data);
+
+
+    const result = await service.admin.addUser(data);
+    console.log(result);
+
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+
+
+    /*     if (result) {
+      ctx.body = {
+        msg: 'ok',
+        data: [ result ],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    } */
   }
 
   // !! 基本信息管理-----------------------------
