@@ -259,12 +259,27 @@ class AdminController extends Controller {
         retcode: -1,
       };
     }
+  }
+
+  // 删除一条用户的数据
+  async deleteUser() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log('传来的数据：------------------------');
+    console.log(data);
 
 
-    /*     if (result) {
+    const result = await service.admin.deleteUser(data);
+    console.log(result);
+
+    if (result.affectedRows === 1) {
       ctx.body = {
         msg: 'ok',
-        data: [ result ],
+        data: [],
         retcode: 0,
       };
     } else {
@@ -273,7 +288,7 @@ class AdminController extends Controller {
         data: result,
         retcode: -1,
       };
-    } */
+    }
   }
 
   // !! 基本信息管理-----------------------------

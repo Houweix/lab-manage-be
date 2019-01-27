@@ -220,7 +220,18 @@ class AdminService extends Service {
   }
 
 
-  // 添加一条用户信息
+  // 删除一条用户的信息
+  async deleteUser(data) {
+    const {
+      role,
+      userData,
+    } = data;
+
+    console.log(userData);
+
+    const result = await this.app.mysql.delete(role, userData);
+    return result;
+  }
 }
 
 module.exports = AdminService;

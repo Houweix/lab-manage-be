@@ -35,6 +35,10 @@ module.exports = app => {
   // 添加一条用户
   router.post('/admin/addUser', controller.admin.addUser);
 
+  // 删除用户信息
+  router.post('/admin/deleteUser', controller.admin.deleteUser);
+
+
   // ! 以下是用户端接口（学生）
 
 
