@@ -200,7 +200,6 @@ class AdminController extends Controller {
     }  */
   }
 
-
   // 临时添加用户
   async tmpAdd() {
     const {
@@ -229,7 +228,6 @@ class AdminController extends Controller {
       };
     }
   }
-
 
   // todo 统一的添加单条用户
   async addUser() {
