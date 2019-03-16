@@ -101,6 +101,7 @@ class AdminService extends Service {
       password: await this.getMD5(tableResults[0].password),
       name: tableResults[0].name,
       sex: tableResults[0].sex,
+      class: tableResults[0].class,
     });
 
 
@@ -124,7 +125,8 @@ class AdminService extends Service {
           // password: hashPass,
           password: await this.getMD5(tableResults[i].password),
           name: tableResults[i].name,
-          sex: tableResults[0].sex,
+          sex: tableResults[i].sex,
+          class: tableResults[i].class,
         });
       } catch (error) {
         return error;
@@ -135,14 +137,73 @@ class AdminService extends Service {
   }
 
   // 教师账户的添加
-  /*   async teacherAdd() {
-    pass = await this.getHash(pass);
-    const result = await this.app.mysql.insert(identity, {
-      id: username,
-      password: pass,
+  async teacherAdd() {
+    const {
+      tableResults,
+      role,
+    } = this.ctx.request.body;
+
+
+    const search = await this.app.mysql.select(role, {
+      orders: [
+        [ 'id', 'desc' ],
+      ],
+      limit: 1,
     });
-    return result;
-  } */
+
+    //  当前表为空
+    if (!search[0].id) {
+      const initId = await this.getInitId(role);
+      tableResults[0].id = initId;
+    } else {
+      //  不为空
+      tableResults[0].id = parseInt(search[0].id) + 1;
+    }
+
+
+    //  插入第一条
+    await this.app.mysql.insert(role, {
+      id: tableResults[0].id,
+      // password: hashPass,
+      password: await this.getMD5(tableResults[0].password),
+      name: tableResults[0].name,
+      sex: tableResults[0].sex,
+      class_name: tableResults[0].class_name,
+      coures_id: tableResults[0].coures_id,
+    });
+
+
+    //  插入其他的
+    for (let i = 1; i < tableResults.length; i++) {
+      if (tableResults[i].name < 2 || tableResults[i].name > 10) {
+        // 名字长度不正确
+        return 'name';
+      }
+
+      const search = await this.app.mysql.select(role, {
+        orders: [
+          [ 'id', 'desc' ],
+        ],
+        limit: 1,
+      });
+
+      try {
+        await this.app.mysql.insert(role, {
+          id: parseInt(search[0].id) + 1,
+          // password: hashPass,
+          password: await this.getMD5(tableResults[i].password),
+          name: tableResults[i].name,
+          sex: tableResults[i].sex,
+          class_name: tableResults[i].class_name,
+          coures_id: tableResults[i].coures_id,
+        });
+      } catch (error) {
+        return error;
+      }
+    }
+
+    return 'ok';
+  }
 
   // 管理员账户的添加
   async adminAdd() {
