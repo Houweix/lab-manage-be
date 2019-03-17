@@ -17,10 +17,6 @@ module.exports = app => {
   // 登录
   router.post('/admin/login', controller.admin.login);
 
-  //  临时 添加用户的接口（管理员
-  router.post('/admin/tmpAdd', controller.admin.tmpAdd);
-
-
   //  处理上传的表格文件
   router.post('/admin/uploadResult', controller.admin.uploadResult);
 
@@ -37,6 +33,10 @@ module.exports = app => {
 
   // 删除用户信息
   router.post('/admin/deleteUser', controller.admin.deleteUser);
+
+
+  // 课程相关
+  router.get('/course/getAllData', controller.admin.getCourseData);
 
 
   // ! 以下是用户端接口（学生）

@@ -152,7 +152,7 @@ class AdminService extends Service {
     });
 
     //  当前表为空
-    if (!search[0].id) {
+    if (!search[0]) {
       const initId = await this.getInitId(role);
       tableResults[0].id = initId;
     } else {
@@ -206,18 +206,22 @@ class AdminService extends Service {
   }
 
   // 管理员账户的添加
-  async adminAdd() {
+  /*   async adminAdd() {
     pass = await this.getHash(pass);
     const result = await this.app.mysql.insert(identity, {
       id: username,
       password: pass,
     });
     return result;
-  }
+  } */
   // 获取表中的信息
   async getAllData(role) {
     try {
       const result = await this.app.mysql.select(role);
+      if (role === 'teacher') {
+        // todo
+        const course = await this.app.mysql.select('course');
+      }
       return result;
     } catch (error) {
       return error;
@@ -233,7 +237,6 @@ class AdminService extends Service {
     const result = await this.app.mysql.update(role, row);
     return result;
   }
-
   // 搜索用户 by name
   async searchUser(userData) {
     const {
@@ -268,7 +271,7 @@ class AdminService extends Service {
     });
 
     //  当前表为空
-    if (!search[0].id) {
+    if (!search[0]) {
       const initId = await this.getInitId(role);
       tuserData.id = initId;
     } else {
@@ -279,7 +282,6 @@ class AdminService extends Service {
     const result = await this.app.mysql.insert(role, tuserData);
     return result;
   }
-
 
   // 删除一条用户的信息
   async deleteUser(data) {

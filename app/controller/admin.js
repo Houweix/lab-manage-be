@@ -63,8 +63,6 @@ class AdminController extends Controller {
     } = this;
 
     const {
-      tableTitle,
-      tableResults,
       role,
     } = ctx.request.body;
 
@@ -200,35 +198,6 @@ class AdminController extends Controller {
     }  */
   }
 
-  // 临时添加用户
-  async tmpAdd() {
-    const {
-      ctx,
-      service,
-    } = this;
-
-    const {
-      username,
-      identity,
-      password,
-    } = ctx.request.body;
-
-    const result = await service.admin.tmpAdd(username, password, identity);
-    if (result) {
-      ctx.body = {
-        msg: '添加成功',
-        data: {},
-        retcode: 0,
-      };
-    } else {
-      ctx.body = {
-        msg: '添加失败',
-        data: {},
-        retcode: -100,
-      };
-    }
-  }
-
   // todo 统一的添加单条用户
   async addUser() {
     const {
@@ -289,7 +258,32 @@ class AdminController extends Controller {
     }
   }
 
-  // !! 基本信息管理-----------------------------
+  // !! 课程管理
+  //  获取全部课程
+  async getCourseData() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const result = await service.course.getAllData();
+    // console.log(result);
+
+    if (result) {
+      ctx.body = {
+        msg: 'ok',
+        data: result,
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: [],
+        retcode: -1,
+      };
+    }
+  }
+
 }
 
 module.exports = AdminController;
