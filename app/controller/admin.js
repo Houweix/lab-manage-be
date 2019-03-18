@@ -169,10 +169,16 @@ class AdminController extends Controller {
     const result = await service.admin.searchUser(data);
     console.log(result);
 
-    if (result) {
+    if (result && data.role === 'student') {
       ctx.body = {
         msg: 'ok',
         data: [ result ],
+        retcode: 0,
+      };
+    } else if (result && data.role === 'teacher') {
+      ctx.body = {
+        msg: 'ok',
+        data: result,
         retcode: 0,
       };
     } else {

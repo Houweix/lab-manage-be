@@ -70,6 +70,7 @@ class AdminService extends Service {
     return result;
   }
 
+  // 学生的添加
   async studentAdd() {
     const {
       tableResults,
@@ -214,13 +215,36 @@ class AdminService extends Service {
     });
     return result;
   } */
+
+  //  根据id获取课程名字
+  async getNowCourse(teacherResult) {
+    const course = await this.app.mysql.select('course');
+    const aCourse = Array.from(course);
+
+    const r = Array.from(teacherResult);
+    console.log('getNowCourse');
+    console.log(aCourse);
+
+    r.forEach(elem => {
+      elem.course_id = aCourse.find(id => {
+        return id.id === elem.course_id;
+      }).name;
+
+      console.log(elem.course_id);
+    });
+
+    // console.log(r);
+
+    return r;
+  }
+
   // 获取表中的信息
   async getAllData(role) {
     try {
-      const result = await this.app.mysql.select(role);
+      let result = await this.app.mysql.select(role);
       if (role === 'teacher') {
-        // todo
-        const course = await this.app.mysql.select('course');
+        // 遍历教师数组替换课程数据
+        result = await this.getNowCourse(result);
       }
       return result;
     } catch (error) {
@@ -233,6 +257,11 @@ class AdminService extends Service {
     const row = userData.editData;
     console.log(row);
     const role = userData.role;
+
+    if (row.password) {
+      row.password = await this.getMD5(row.password);
+    }
+
     // 更新数据
     const result = await this.app.mysql.update(role, row);
     return result;
@@ -244,9 +273,16 @@ class AdminService extends Service {
       name,
     } = userData;
 
-    const result = await this.app.mysql.get(role, {
+    let result = await this.app.mysql.get(role, {
       name,
     });
+
+    if (role === 'teacher') {
+      result = await this.getNowCourse([ result ]);
+    }
+
+    console.log('111');
+    console.log(result);
     return result;
   }
 
