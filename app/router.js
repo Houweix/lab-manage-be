@@ -14,6 +14,7 @@ module.exports = app => {
 
   // ! 以下是管理系统接口（教师，管理员）
 
+  // 用户管理------------------------------------------------------
   // 登录
   router.post('/admin/login', controller.admin.login);
 
@@ -34,9 +35,13 @@ module.exports = app => {
   // 删除用户信息
   router.post('/admin/deleteUser', controller.admin.deleteUser);
 
-
-  // 课程相关
+  // 课程相关---
   router.get('/course/getAllData', controller.admin.getCourseData);
+
+
+  // 实验室管理------------------------------------------------------
+
+  router.get('/lab/getLabData', controller.admin.getLabData);
 
 
   // ! 以下是用户端接口（学生）

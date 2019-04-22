@@ -290,6 +290,30 @@ class AdminController extends Controller {
     }
   }
 
+  //  获取全部实验室
+  async getLabData() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const result = await service.lab.getAllData();
+
+    if (result) {
+      ctx.body = {
+        msg: 'ok',
+        data: result,
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: [],
+        retcode: -1,
+      };
+    }
+  }
+
 }
 
 module.exports = AdminController;
