@@ -11,7 +11,7 @@
  Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 03/05/2019 13:58:15
+ Date: 03/05/2019 20:19:59
 */
 
 SET NAMES utf8mb4;
@@ -80,13 +80,13 @@ CREATE TABLE `lab`  (
   `seat` int(100) NULL DEFAULT NULL COMMENT '实验室座位数',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `lab_fk_1`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '实验室实体表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '实验室实体表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of lab
 -- ----------------------------
-INSERT INTO `lab` VALUES (1, '物理实验室', '20156386', 'false', 20);
-INSERT INTO `lab` VALUES (2, '高数实验室', '20156387', 'true', 20);
+INSERT INTO `lab` VALUES (3, '大学物理实验室', '20156386', '1', 30);
+INSERT INTO `lab` VALUES (5, '大学物理光学01', '20156386', '1', 30);
 
 -- ----------------------------
 -- Table structure for post
@@ -97,11 +97,15 @@ CREATE TABLE `post`  (
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '信息标题',
   `user` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发布人姓名',
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发布内容',
-  `time` datetime(0) NULL DEFAULT NULL COMMENT '发布时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `post_fk_1`(`user`) USING BTREE,
-  CONSTRAINT `post_fk_1` FOREIGN KEY (`user`) REFERENCES `admin` (`name`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '信息公告' ROW_FORMAT = Compact;
+  `time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发布时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '信息公告' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of post
+-- ----------------------------
+INSERT INTO `post` VALUES (7, '测试2', '侯伟2', '测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1', '2019年5月3日20时18分');
+INSERT INTO `post` VALUES (8, '测试2', '侯伟2', '测试2测试2测试2测试2测试3', '2019年5月3日20时19分');
 
 -- ----------------------------
 -- Table structure for student

@@ -188,20 +188,6 @@ class AdminController extends Controller {
         retcode: -1,
       };
     }
-
-    /*  if (result.affectedRows !== 0) {
-      ctx.body = {
-        msg: 'ok',
-        data: [],
-        retcode: 0,
-      };
-    } else {
-      ctx.body = {
-        msg: 'error',
-        data: result,
-        retcode: -1,
-      };
-    }  */
   }
 
   async addUser() {
@@ -241,9 +227,6 @@ class AdminController extends Controller {
     } = this;
 
     const data = ctx.request.body;
-    console.log('传来的数据：------------------------');
-    console.log(data);
-
 
     const result = await service.admin.deleteUser(data);
     console.log(result);
@@ -340,6 +323,7 @@ class AdminController extends Controller {
     }
   }
 
+  // 添加实验室信息
   async addLab() {
     const {
       ctx,
@@ -352,6 +336,171 @@ class AdminController extends Controller {
 
 
     const result = await service.lab.addLab(data);
+    console.log(result);
+
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+  }
+
+  //  修改实验室信息
+  async editLab() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log(data);
+
+    const result = await service.lab.editLab(data.labData);
+    console.log(result);
+
+    if (result.affectedRows !== 0) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+  }
+
+  // 删除实验室
+  async deleteLab() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+
+    const result = await service.lab.deleteLab(data);
+    console.log(result);
+
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+  }
+
+  //  !!公告管理
+  //  获取全部公告
+  async getPostData() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const result = await service.post.getAllData();
+
+    if (result) {
+      ctx.body = {
+        msg: 'ok',
+        data: result,
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: [],
+        retcode: -1,
+      };
+    }
+  }
+
+  // 添加公告信息
+  async addPost() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log('传来的数据：------------------------');
+    console.log(data);
+
+
+    const result = await service.post.addPost(data);
+    console.log(result);
+
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+  }
+
+  //  修改公告信息
+  async editPost() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log(data);
+
+    const result = await service.post.editPost(data);
+    console.log(result);
+
+    if (result.affectedRows !== 0) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+  }
+
+  // 删除公告
+  async deletePost() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+
+    const result = await service.post.deletePost(data);
     console.log(result);
 
     if (result.affectedRows === 1) {

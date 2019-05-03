@@ -268,6 +268,7 @@ class AdminService extends Service {
     const result = await this.app.mysql.update(role, row);
     return result;
   }
+
   // 搜索用户 by name
   async searchUser(userData) {
     const {
