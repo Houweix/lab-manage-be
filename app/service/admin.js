@@ -259,6 +259,8 @@ class AdminService extends Service {
     const role = userData.role;
 
     if (row.password) {
+      console.log(`yuan: ${row.password}`);
+
       row.password = await this.getMD5(row.password);
     }
 
@@ -329,6 +331,14 @@ class AdminService extends Service {
     console.log(userData);
 
     const result = await this.app.mysql.delete(role, userData);
+    return result;
+  }
+
+  //  获取管理员列表
+  async getAdmin() {
+    const result = await this.app.mysql.select('admin', {
+      columns: [ 'id', 'name' ],
+    });
     return result;
   }
 }

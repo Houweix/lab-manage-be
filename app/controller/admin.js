@@ -204,7 +204,6 @@ class AdminController extends Controller {
     }  */
   }
 
-  // todo 统一的添加单条用户
   async addUser() {
     const {
       ctx,
@@ -264,6 +263,31 @@ class AdminController extends Controller {
     }
   }
 
+  //  获取管理员列表
+  async getAdmin() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const result = await service.admin.getAdmin();
+    console.log(result);
+
+    if (result) {
+      ctx.body = {
+        msg: 'ok',
+        data: result,
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+  }
+
   // !! 课程管理
   //  获取全部课程
   async getCourseData() {
@@ -290,6 +314,8 @@ class AdminController extends Controller {
     }
   }
 
+
+  //  !!实验室管理
   //  获取全部实验室
   async getLabData() {
     const {
@@ -309,6 +335,35 @@ class AdminController extends Controller {
       ctx.body = {
         msg: 'error',
         data: [],
+        retcode: -1,
+      };
+    }
+  }
+
+  async addLab() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log('传来的数据：------------------------');
+    console.log(data);
+
+
+    const result = await service.lab.addLab(data);
+    console.log(result);
+
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
         retcode: -1,
       };
     }

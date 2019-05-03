@@ -8,9 +8,6 @@ module.exports = app => {
     router,
     controller,
   } = app;
-  // router.get('/', controller.home.index);
-  // router.get('/new', controller.home.new);
-  // router.get('/admin', controller.admin.index);
 
   // ! 以下是管理系统接口（教师，管理员）
 
@@ -35,16 +32,21 @@ module.exports = app => {
   // 删除用户信息
   router.post('/admin/deleteUser', controller.admin.deleteUser);
 
+  //  获取管理员列表
+  router.get('/admin/getAdmin', controller.admin.getAdmin);
+
   // 课程相关---
   router.get('/course/getAllData', controller.admin.getCourseData);
 
 
   // 实验室管理------------------------------------------------------
-
+  // 获取全部
   router.get('/lab/getLabData', controller.admin.getLabData);
+
+  // 添加实验室
+  router.post('/lab/addLab', controller.admin.addLab);
 
 
   // ! 以下是用户端接口（学生）
-
 
 };

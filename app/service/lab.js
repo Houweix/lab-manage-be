@@ -12,6 +12,15 @@ class LabService extends Service {
       return error;
     }
   }
+
+  async addLab(data) {
+    const {
+      labData,
+    } = data;
+
+    const result = await this.app.mysql.insert('lab', labData);
+    return result;
+  }
 }
 
 module.exports = LabService;
