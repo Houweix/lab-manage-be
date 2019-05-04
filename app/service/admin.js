@@ -342,6 +342,49 @@ class AdminService extends Service {
     });
     return result;
   }
+
+  //  修改个人密码-------------------------------
+  async editPassword(data) {
+    const {
+      editData,
+    } = data;
+
+    const { user, identity, password1, password2 } = editData;
+
+
+    const pass1 = await this.getMD5(password1);
+    const pass2 = await this.getMD5(password2);
+
+    // console.log({ id: `${user}` });
+
+    const origin = await this.app.mysql.select(identity, { where: { id: `${user}` } });
+    console.log('origin---------');
+    console.log(origin);
+
+    //  没找到用户
+    if (origin[0]) {
+
+      //  原密码正确
+      if (origin[0].password === pass1) {
+
+        const result = await this.app.mysql.update(identity, {
+          id: `${user}`,
+          password: pass2,
+        });
+        if (result.affectedRows === 1) {
+          //  成功
+          return 0;
+        }
+        //  数据库失败
+        return 1;
+      }
+      //  原密码不正确
+      return 2;
+
+    }
+    //  未找到用户
+    return 3;
+  }
 }
 
 module.exports = AdminService;

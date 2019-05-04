@@ -14,26 +14,22 @@ module.exports = app => {
   // 用户管理------------------------------------------------------
   // 登录
   router.post('/admin/login', controller.admin.login);
-
   //  处理上传的表格文件
   router.post('/admin/uploadResult', controller.admin.uploadResult);
-
   router.get('/admin/getAllData', controller.admin.getAllData);
-
   //  编辑用户
   router.post('/admin/editUser', controller.admin.editUser);
-
   //  搜索用户
   router.post('/admin/searchUser', controller.admin.searchUser);
-
   // 添加一条用户
   router.post('/admin/addUser', controller.admin.addUser);
-
   // 删除用户信息
   router.post('/admin/deleteUser', controller.admin.deleteUser);
-
   //  获取管理员列表
   router.get('/admin/getAdmin', controller.admin.getAdmin);
+  //  !!修改个人密码---------------------------------用户端也能用-----------------
+  router.post('/admin/editPass', controller.admin.editPassword);
+
 
   // 课程相关---
   router.get('/course/getAllData', controller.admin.getCourseData);

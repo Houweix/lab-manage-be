@@ -47,6 +47,7 @@ class AdminController extends Controller {
         data: {
           name: userinfo2.name,
           identity,
+          id: username,
         },
         retcode: 0,
       };
@@ -267,6 +268,41 @@ class AdminController extends Controller {
         msg: 'error',
         data: result,
         retcode: -1,
+      };
+    }
+  }
+
+  //  修改个人密码----------------------
+  async editPassword() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+
+    const data = ctx.request.body;
+
+    //  首先验证数据库原始密码是否正确
+
+    const result = await service.admin.editPassword(data);
+
+    if (result === 0) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else if (result === 2) {
+      ctx.body = {
+        msg: '原始密码不正确',
+        data: [],
+        retcode: 2,
+      };
+    } else {
+      ctx.body = {
+        msg: '网络，稍后重试',
+        data: [],
+        retcode: result,
       };
     }
   }
