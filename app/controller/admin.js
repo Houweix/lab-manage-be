@@ -564,8 +564,6 @@ class AdminController extends Controller {
     const data = ctx.request.body;
     console.log('传来的数据：------------------------');
     console.log(data);
-    return;
-
 
     const result = await service.course.addCourse(data);
     console.log(result);
@@ -595,7 +593,7 @@ class AdminController extends Controller {
     const data = ctx.request.body;
     console.log(data);
 
-    const result = await service.course.editCourse(data.labData);
+    const result = await service.course.editCourse(data);
     console.log(result);
 
     if (result.affectedRows !== 0) {
