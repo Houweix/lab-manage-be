@@ -300,7 +300,7 @@ class AdminController extends Controller {
       };
     } else {
       ctx.body = {
-        msg: '网络，稍后重试',
+        msg: '网络错误，稍后重试',
         data: [],
         retcode: result,
       };
@@ -316,7 +316,6 @@ class AdminController extends Controller {
     } = this;
 
     const result = await service.course.getAllData();
-    // console.log(result);
 
     if (result) {
       ctx.body = {
@@ -554,6 +553,92 @@ class AdminController extends Controller {
     }
   }
 
+  // !!课程相关-----------------------
+  // 添加课程信息
+  async addCourse() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log('传来的数据：------------------------');
+    console.log(data);
+    return;
+
+
+    const result = await service.course.addCourse(data);
+    console.log(result);
+
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+  }
+
+  //  修改课程信息
+  async editCourse() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log(data);
+
+    const result = await service.course.editCourse(data.labData);
+    console.log(result);
+
+    if (result.affectedRows !== 0) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+  }
+
+  // 删除课程
+  async deleteCourse() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+
+    const result = await service.course.deleteCourse(data);
+    console.log(result);
+
+    if (result.affectedRows === 1) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+  }
 }
 
 module.exports = AdminController;

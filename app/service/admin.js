@@ -242,10 +242,12 @@ class AdminService extends Service {
   async getAllData(role) {
     try {
       let result = await this.app.mysql.select(role);
+
       if (role === 'teacher') {
         // 遍历教师数组替换课程数据
         result = await this.getNowCourse(result);
       }
+
       return result;
     } catch (error) {
       return error;

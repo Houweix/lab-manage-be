@@ -11,7 +11,7 @@ module.exports = app => {
 
   // ! 以下是管理系统接口（教师，管理员）
 
-  // 用户管理------------------------------------------------------
+  // !!用户管理------------------------------------------------------
   // 登录
   router.post('/admin/login', controller.admin.login);
   //  处理上传的表格文件
@@ -27,15 +27,11 @@ module.exports = app => {
   router.post('/admin/deleteUser', controller.admin.deleteUser);
   //  获取管理员列表
   router.get('/admin/getAdmin', controller.admin.getAdmin);
+
   //  !!修改个人密码---------------------------------用户端也能用-----------------
   router.post('/admin/editPass', controller.admin.editPassword);
 
-
-  // 课程相关---
-  router.get('/course/getAllData', controller.admin.getCourseData);
-
-
-  // 实验室管理------------------------------------------------------
+  // !!实验室管理------------------------------------------------------
   // 获取全部
   router.get('/lab/getLabData', controller.admin.getLabData);
   // 添加实验室
@@ -45,7 +41,7 @@ module.exports = app => {
   //  删除
   router.post('/lab/deleteLab', controller.admin.deleteLab);
 
-  // 公告管理------------------------------------------------------
+  // !!公告管理------------------------------------------------------
   // 获取全部
   router.get('/post/getData', controller.admin.getPostData);
   // 添加实验室
@@ -55,6 +51,16 @@ module.exports = app => {
   //  删除
   router.post('/post/deleteData', controller.admin.deletePost);
 
+
+  // !!课程相关------------------------------------
+  // 获取全部课程
+  router.get('/course/getAllData', controller.admin.getCourseData);
+  // 添加课程
+  router.post('/course/addData', controller.admin.addCourse);
+  // 编辑课程
+  router.post('/course/editData', controller.admin.editCourse);
+  //  删除科课程
+  router.post('/course/deleteData', controller.admin.deleteCourse);
 
   // ! 以下是用户端接口（学生）
 
