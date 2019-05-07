@@ -62,6 +62,14 @@ module.exports = app => {
   //  删除科课程
   router.post('/course/deleteData', controller.admin.deleteCourse);
 
+
+  //  !!班级课程分配
+  // 获取所有的班级
+  router.get('/class/getClass', controller.admin.getClass);
+
+  //  根据班级名获取课程
+  router.post('/class/getCourseByClass', controller.admin.getCourseByClass);
+
   // ! 以下是用户端接口（学生）
 
 };

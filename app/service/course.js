@@ -44,6 +44,27 @@ class CourseService extends Service {
     return result;
   }
 
+  async getClass() {
+    //  选择全部的课程信息
+    const result = await this.app.mysql.query('select distinct class from student');
+    return result;
+  }
+
+  //  根据班级名获取课程
+  async getCourseByClass(data) {
+
+    const {
+      className,
+    } = data;
+
+    const result = await this.app.mysql.select('class', {
+      where: { class: className },
+      columns: [ 'course' ],
+    });
+    console.log(result);
+    return result;
+  }
+
 }
 
 module.exports = CourseService;

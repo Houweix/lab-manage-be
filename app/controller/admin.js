@@ -637,6 +637,59 @@ class AdminController extends Controller {
       };
     }
   }
+
+  //  !! 课程分配
+  async getClass() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const result = await service.course.getClass();
+
+    if (result) {
+      ctx.body = {
+        msg: 'ok',
+        data: result,
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: [],
+        retcode: -1,
+      };
+    }
+  }
+
+  //  根据班级名获取课程
+  async getCourseByClass() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log('收到的数据----');
+    console.log(data);
+
+    const result = await service.course.getCourseByClass(data);
+
+    if (result) {
+      ctx.body = {
+        msg: 'ok',
+        data: result,
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: [],
+        retcode: -1,
+      };
+    }
+  }
+
 }
 
 module.exports = AdminController;
