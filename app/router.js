@@ -66,11 +66,15 @@ module.exports = app => {
   //  !!班级课程分配
   // 获取所有的班级
   router.get('/class/getClass', controller.admin.getClass);
-
   //  根据班级名获取课程
   router.post('/class/getCourseByClass', controller.admin.getCourseByClass);
   //  为班级添加课程
   router.post('/class/addCourseByClass', controller.admin.addCourseByClass);
+
+
+  //  !! 学生成绩相关
+  router.post('/grade/getFilterStudentData', controller.admin.getFilterStudentData);
+
 
   // ! 以下是用户端接口（学生）
 

@@ -70,6 +70,20 @@ class CourseService extends Service {
     });
     return result;
   }
+
+  //  根据班级名获取课程
+  async getFilterStudentData(data) {
+    const { className, courseName } = data;
+
+    console.log('---------');
+    console.log(data);
+
+    const result = await this.app.mysql.select('grade', {
+      where: { class: className, course: courseName },
+      columns: [ 'id', 'student', 'grade_val' ],
+    });
+    return result;
+  }
 }
 
 module.exports = CourseService;
