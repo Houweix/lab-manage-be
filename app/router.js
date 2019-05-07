@@ -74,6 +74,12 @@ module.exports = app => {
 
   //  !! 学生成绩相关
   router.post('/grade/getFilterStudentData', controller.admin.getFilterStudentData);
+  // 根据班级获取学生
+  router.post('/grade/getClassStudent', controller.admin.getClassStudent);
+  // 添加成绩
+  router.post('/grade/addGrade', controller.admin.addGrade);
+  // 编辑成绩
+  router.post('/grade/editGrade', controller.admin.editGrade);
 
 
   // ! 以下是用户端接口（学生）

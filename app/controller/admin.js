@@ -746,7 +746,89 @@ class AdminController extends Controller {
     }
   }
 
+  //  根据班级获取学生
+  async getClassStudent() {
+    const {
+      ctx,
+      service,
+    } = this;
 
+    const data = ctx.request.body;
+    console.log('收到的数据----');
+    console.log(data);
+
+    const result = await service.course.getClassStudent(data);
+
+    if (result) {
+      ctx.body = {
+        msg: 'ok',
+        data: result,
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: [],
+        retcode: -1,
+      };
+    }
+  }
+
+  //  添加课程
+  async addGrade() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log('收到的数据----');
+    console.log(data);
+
+    const result = await service.course.addGrade(data);
+
+    if (result) {
+      ctx.body = {
+        msg: 'ok',
+        data: result,
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: [],
+        retcode: -1,
+      };
+    }
+  }
+
+  // 编辑成绩
+  async editGrade() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log(data);
+
+    const result = await service.course.editGrade(data);
+    console.log(result);
+
+    if (result.affectedRows !== 0) {
+      ctx.body = {
+        msg: 'ok',
+        data: [],
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: result,
+        retcode: -1,
+      };
+    }
+  }
 }
 
 module.exports = AdminController;

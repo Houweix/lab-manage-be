@@ -84,6 +84,41 @@ class CourseService extends Service {
     });
     return result;
   }
+
+  //  根据班级名获取学生list
+  async getClassStudent(data) {
+    const { className } = data;
+
+    console.log('---------');
+    console.log(data);
+
+    const result = await this.app.mysql.select('student', {
+      where: { class: className },
+      columns: [ 'name' ],
+    });
+    return result;
+  }
+
+
+  //  添加成绩
+  async addGrade(data) {
+    const { postData } = data;
+
+    console.log('---------');
+    console.log(data);
+
+    const result = await this.app.mysql.insert('grade', postData);
+    return result;
+  }
+
+  async editGrade(data) {
+    const { postData } = data;
+
+    // 更新数据
+    const result = await this.app.mysql.update('grade', postData);
+    return result;
+  }
+
 }
 
 module.exports = CourseService;
