@@ -11,7 +11,7 @@
  Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 03/05/2019 20:19:59
+ Date: 07/05/2019 21:15:58
 */
 
 SET NAMES utf8mb4;
@@ -37,6 +37,24 @@ INSERT INTO `admin` VALUES ('20156387', '4297f44b13955235245b2497399d7a93', 'zh'
 INSERT INTO `admin` VALUES ('20156388', '4297f44b13955235245b2497399d7a93', 'zh3');
 
 -- ----------------------------
+-- Table structure for class
+-- ----------------------------
+DROP TABLE IF EXISTS `class`;
+CREATE TABLE `class`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '班级关联上课情况',
+  `class` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班级名称',
+  `course` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程id',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of class
+-- ----------------------------
+INSERT INTO `class` VALUES (1, '物联网二班', '大学物理01');
+INSERT INTO `class` VALUES (3, '物联网二班', '大学物理02');
+INSERT INTO `class` VALUES (4, '物联网一班', '大学物理01');
+
+-- ----------------------------
 -- Table structure for course
 -- ----------------------------
 DROP TABLE IF EXISTS `course`;
@@ -50,7 +68,13 @@ CREATE TABLE `course`  (
   `week` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '上课周数',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `lab_id`(`lab_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '课程表，记录实验课程的信息' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '课程表，记录实验课程的信息' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of course
+-- ----------------------------
+INSERT INTO `course` VALUES (1, '大学物理01', 3, '星期三、星期五', '10', '12', '3-5');
+INSERT INTO `course` VALUES (3, '大学物理02', 5, '星期三', '13', '15', '3-5');
 
 -- ----------------------------
 -- Table structure for grade
@@ -58,15 +82,20 @@ CREATE TABLE `course`  (
 DROP TABLE IF EXISTS `grade`;
 CREATE TABLE `grade`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '成绩id',
-  `student_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT ' 成绩关联的学生id',
-  `course_id` int(11) NULL DEFAULT NULL COMMENT '成绩关联的课程id',
+  `student` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT ' 成绩关联的学生',
+  `class` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `course` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '成绩关联的课程',
   `grade_val` int(11) NULL DEFAULT NULL COMMENT '成绩的值',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `t_grade_fk_1`(`student_id`) USING BTREE,
-  INDEX `t_grade_fk_2`(`course_id`) USING BTREE,
-  CONSTRAINT `t_grade_fk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `t_grade_fk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生成绩表' ROW_FORMAT = Compact;
+  INDEX `t_grade_fk_1`(`student`) USING BTREE,
+  INDEX `t_grade_fk_2`(`course`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生成绩表' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of grade
+-- ----------------------------
+INSERT INTO `grade` VALUES (1, '吼姆', '物联网二班', '大学物理01', 90);
+INSERT INTO `grade` VALUES (2, '侯伟', '物联网一班', '大学物理01', 70);
 
 -- ----------------------------
 -- Table structure for lab
@@ -148,8 +177,12 @@ CREATE TABLE `teacher`  (
   `class_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班级名称',
   `course_id` int(11) NULL DEFAULT NULL COMMENT '关联的授课id',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `teacher_fk_1`(`course_id`) USING BTREE,
-  CONSTRAINT `teacher_fk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  INDEX `teacher_fk_1`(`course_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '教师表' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of teacher
+-- ----------------------------
+INSERT INTO `teacher` VALUES ('200000', '4297f44b13955235245b2497399d7a93', '侯伟', 'm', '物联网二班', 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
