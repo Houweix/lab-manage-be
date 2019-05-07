@@ -69,6 +69,8 @@ module.exports = app => {
 
   //  根据班级名获取课程
   router.post('/class/getCourseByClass', controller.admin.getCourseByClass);
+  //  为班级添加课程
+  router.post('/class/addCourseByClass', controller.admin.addCourseByClass);
 
   // ! 以下是用户端接口（学生）
 

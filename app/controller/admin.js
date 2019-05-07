@@ -690,6 +690,35 @@ class AdminController extends Controller {
     }
   }
 
+  //  根据班级名添加课程
+  async addCourseByClass() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log('收到的数据----');
+    console.log(data);
+
+    const result = await service.course.addCourseByClass(data);
+
+    if (result) {
+      ctx.body = {
+        msg: 'ok',
+        data: result,
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: [],
+        retcode: -1,
+      };
+    }
+  }
+
+
 }
 
 module.exports = AdminController;

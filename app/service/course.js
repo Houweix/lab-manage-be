@@ -15,9 +15,7 @@ class CourseService extends Service {
 
   //  添加课程
   async addCourse(data) {
-    const {
-      postData,
-    } = data;
+    const { postData } = data;
 
     const result = await this.app.mysql.insert('course', postData);
     return result;
@@ -25,9 +23,7 @@ class CourseService extends Service {
 
   // 编辑课程
   async editCourse(data) {
-    const {
-      postData,
-    } = data;
+    const { postData } = data;
 
     // 更新数据
     const result = await this.app.mysql.update('course', postData);
@@ -35,10 +31,7 @@ class CourseService extends Service {
   }
 
   async deleteCourse(data) {
-    const {
-      courseId,
-    } = data;
-
+    const { courseId } = data;
 
     const result = await this.app.mysql.delete('course', { id: courseId });
     return result;
@@ -46,16 +39,15 @@ class CourseService extends Service {
 
   async getClass() {
     //  选择全部的课程信息
-    const result = await this.app.mysql.query('select distinct class from student');
+    const result = await this.app.mysql.query(
+      'select distinct class from student'
+    );
     return result;
   }
 
   //  根据班级名获取课程
   async getCourseByClass(data) {
-
-    const {
-      className,
-    } = data;
+    const { className } = data;
 
     const result = await this.app.mysql.select('class', {
       where: { class: className },
@@ -65,6 +57,19 @@ class CourseService extends Service {
     return result;
   }
 
+  //  根据班级名获取课程
+  async addCourseByClass(data) {
+    const { className, courseName } = data;
+
+    console.log('---------');
+    console.log(data);
+
+    const result = await this.app.mysql.insert('class', {
+      class: className,
+      course: courseName,
+    });
+    return result;
+  }
 }
 
 module.exports = CourseService;
