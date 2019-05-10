@@ -80,4 +80,7 @@ module.exports = app => {
   router.post('/grade/addGrade', controller.admin.addGrade);
   // 编辑成绩
   router.post('/grade/editGrade', controller.admin.editGrade);
+
+  // 根据学生名字获取成绩
+  router.post('/grade/getGradeByName', controller.admin.getGradeByName);
 };

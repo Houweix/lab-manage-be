@@ -111,11 +111,26 @@ class CourseService extends Service {
     return result;
   }
 
+  //  编辑成绩
   async editGrade(data) {
     const { postData } = data;
 
     // 更新数据
     const result = await this.app.mysql.update('grade', postData);
+    return result;
+  }
+
+  // 根据学生名字获取成绩
+  async getGradeByName(data) {
+    const { studentName } = data;
+
+    console.log('---------');
+    console.log(data);
+
+    const result = await this.app.mysql.select('grade', {
+      where: { student: studentName },
+      columns: [ 'course', 'grade_val' ],
+    });
     return result;
   }
 
