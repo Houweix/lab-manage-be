@@ -80,8 +80,4 @@ module.exports = app => {
   router.post('/grade/addGrade', controller.admin.addGrade);
   // 编辑成绩
   router.post('/grade/editGrade', controller.admin.editGrade);
-
-
-  // ! 以下是用户端接口（学生）
-
 };

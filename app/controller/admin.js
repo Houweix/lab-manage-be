@@ -48,6 +48,7 @@ class AdminController extends Controller {
           name: userinfo2.name,
           identity,
           id: username,
+          class: userinfo2.class,
         },
         retcode: 0,
       };

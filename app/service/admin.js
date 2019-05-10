@@ -57,6 +57,7 @@ class AdminService extends Service {
     return {
       result: result.password === (await this.getMD5(pass)),
       name: result.name,
+      class: result.class,
     };
   }
 
