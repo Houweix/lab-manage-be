@@ -354,6 +354,9 @@ class AdminService extends Service {
 
     const { user, identity, password1, password2 } = editData;
 
+    console.log('个人密码');
+    console.log(editData);
+
 
     const pass1 = await this.getMD5(password1);
     const pass2 = await this.getMD5(password2);
