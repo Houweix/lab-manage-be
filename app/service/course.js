@@ -33,6 +33,17 @@ class CourseService extends Service {
   async deleteCourse(data) {
     const { courseId } = data;
 
+    const courseData = await this.app.mysql.select('course', { where: { id: courseId } });
+    const courseName = courseData[0].name;
+
+    // console.log('kaishi ------------');
+    // console.log(courseName);
+    // console.log('kaishi ------------');
+    // return;
+
+    await this.app.mysql.delete('class', { course: courseName });
+    await this.app.mysql.delete('grade', { course: courseName });
+
     const result = await this.app.mysql.delete('course', { id: courseId });
     return result;
   }
