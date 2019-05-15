@@ -11,7 +11,7 @@
  Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 11/05/2019 14:47:32
+ Date: 15/05/2019 13:42:18
 */
 
 SET NAMES utf8mb4;
@@ -32,9 +32,9 @@ CREATE TABLE `admin`  (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('20156386', '4297f44b13955235245b2497399d7a93', '侯伟2');
-INSERT INTO `admin` VALUES ('20156387', '4297f44b13955235245b2497399d7a93', 'zh');
-INSERT INTO `admin` VALUES ('20156388', '4297f44b13955235245b2497399d7a93', 'zh3');
+INSERT INTO `admin` VALUES ('20156386', '4297f44b13955235245b2497399d7a93', '侯伟');
+INSERT INTO `admin` VALUES ('20156387', '4297f44b13955235245b2497399d7a93', '邹浩');
+INSERT INTO `admin` VALUES ('20156388', '4297f44b13955235245b2497399d7a93', '滕冠龙');
 
 -- ----------------------------
 -- Table structure for class
@@ -45,16 +45,15 @@ CREATE TABLE `class`  (
   `class` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班级名称',
   `course` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of class
 -- ----------------------------
-INSERT INTO `class` VALUES (1, '物联网二班', '大学物理01');
-INSERT INTO `class` VALUES (3, '物联网二班', '大学物理02');
-INSERT INTO `class` VALUES (4, '物联网一班', '大学物理01');
-INSERT INTO `class` VALUES (5, '物联网二班', '数据库技术');
-INSERT INTO `class` VALUES (6, '物联网二班', '计算机网络');
+INSERT INTO `class` VALUES (1, '物联网二班', '大学物理上');
+INSERT INTO `class` VALUES (3, '物联网二班', '大学物理下');
+INSERT INTO `class` VALUES (4, '物联网一班', '大学物理上');
+INSERT INTO `class` VALUES (7, '物联网一班', '射频识别技术');
 
 -- ----------------------------
 -- Table structure for course
@@ -75,11 +74,10 @@ CREATE TABLE `course`  (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES (1, '大学物理01', 3, '星期三、星期五', '10', '12', '3-5');
+INSERT INTO `course` VALUES (1, '大学物理上', 5, '星期三、星期五', '9', '12', '3-5');
 INSERT INTO `course` VALUES (2, '射频识别技术', 6, '星期四', '19', '21', '10-16');
-INSERT INTO `course` VALUES (3, '大学物理02', 5, '星期三', '13', '15', '3-5');
+INSERT INTO `course` VALUES (3, '大学物理下', 5, '星期四', '13', '15', '3-5');
 INSERT INTO `course` VALUES (4, '数据库技术', 6, '星期二', '10', '12', '10-16');
-INSERT INTO `course` VALUES (5, '计算机网络', 8, '星期一、星期三', '10', '12', '1-8');
 
 -- ----------------------------
 -- Table structure for grade
@@ -94,18 +92,18 @@ CREATE TABLE `grade`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `t_grade_fk_1`(`student`) USING BTREE,
   INDEX `t_grade_fk_2`(`course`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生成绩表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生成绩表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of grade
 -- ----------------------------
-INSERT INTO `grade` VALUES (1, '吼姆', '物联网二班', '大学物理01', '91');
-INSERT INTO `grade` VALUES (2, '侯伟', '物联网一班', '大学物理01', '70');
-INSERT INTO `grade` VALUES (3, 'lisa', '物联网二班', '大学物理01', '100');
-INSERT INTO `grade` VALUES (5, '萨克1', '物联网二班', '大学物理02', '99');
-INSERT INTO `grade` VALUES (6, '萨克1', '物联网二班', '大学物理01', '85');
-INSERT INTO `grade` VALUES (7, '萨克1', '物联网二班', '数据库技术', '66');
-INSERT INTO `grade` VALUES (8, '萨克1', '物联网二班', '计算机网络', '79');
+INSERT INTO `grade` VALUES (1, '侯伟', '物联网二班', '大学物理上', '92');
+INSERT INTO `grade` VALUES (2, '张玥', '物联网一班', '大学物理上', '70');
+INSERT INTO `grade` VALUES (3, '周昊东', '物联网二班', '大学物理上', '100');
+INSERT INTO `grade` VALUES (5, '侯伟', '物联网二班', '大学物理下', '99');
+INSERT INTO `grade` VALUES (6, '张艺', '物联网二班', '大学物理上', '85');
+INSERT INTO `grade` VALUES (7, '侯伟', '物联网二班', '数据库技术', '66');
+INSERT INTO `grade` VALUES (9, '马英坤', '物联网二班', '大学物理下', '80');
 
 -- ----------------------------
 -- Table structure for lab
@@ -119,16 +117,17 @@ CREATE TABLE `lab`  (
   `seat` int(100) NULL DEFAULT NULL COMMENT '实验室座位数',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `lab_fk_1`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '实验室实体表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '实验室实体表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of lab
 -- ----------------------------
-INSERT INTO `lab` VALUES (3, '大学物理实验室', '20156386', '1', 30);
+INSERT INTO `lab` VALUES (3, '大学物理实验室', '20156388', '1', 31);
 INSERT INTO `lab` VALUES (5, '大学物理光学01', '20156386', '1', 30);
-INSERT INTO `lab` VALUES (6, 'RFID实验室', '20156386', '1', 25);
+INSERT INTO `lab` VALUES (6, 'RFID实验室', '20156386', '0', 25);
 INSERT INTO `lab` VALUES (7, '数据库实验室', '20156386', '1', 60);
 INSERT INTO `lab` VALUES (8, '计算机网络实验室', '20156386', '1', 30);
+INSERT INTO `lab` VALUES (9, '传感器实验室', '20156388', '1', 30);
 
 -- ----------------------------
 -- Table structure for post
@@ -141,13 +140,14 @@ CREATE TABLE `post`  (
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发布内容',
   `time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发布时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '信息公告' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '信息公告' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of post
 -- ----------------------------
-INSERT INTO `post` VALUES (7, '计算机、软件学院学生党支部开展“学规章制度，做合格党员”主题党日活动', '侯伟2', '为深入贯彻落实学校第十一次党代会精神，不断将“两学一做”学习教育常态化制度化引向深入，根据组织部关于确定2019 年3月、4月组织生活中心内容的通知要求，计算机科学技术学院、软件学院学生党支部全体学生党员于2019年4月24日14:00在3号楼223教室开展“学规章制度，做合格党员”主题党日活动，活动由辅导员马瑞雪老师主持。\r\n\r\n\r\n\r\n会上，由候悦同学带领党员们通过集体学习、交流研讨等形式认真学习。', '2019年5月3日20时18分');
-INSERT INTO `post` VALUES (8, '计算机、软件学院开展“伴暖植树，四月迎春”植树活动', '侯伟2', '钢筋水泥包裹着的慵懒冬天渐行渐远，阳光明媚的春日如约而至。春风吹新绿，植树正当时。为纪念五四运动100周年，弘扬“五四精神”，树立青春榜样，4月27日计算机科学技术学院、软件学院青年志愿者协会赴哈尔滨市松北区乐业镇杏林村开展主题为“伴暖植树，四月迎春”的植树活动。一场醒春活动，一片杨树林，一场温馨时光，就在此刻开启。\r\n\r\n\r\n\r\n\r\n上午八点半，志愿者们已经在黑龙江大学C区大门集合完毕，随后我们集体乘车去到植树点。经过一个多小时的漫长车程，我们终于来到了心心念念的植树地点。', '2019年5月3日20时19分');
+INSERT INTO `post` VALUES (7, '计算机、软件学院学生党支部开展“学规章制度，做合格党员”主题党日活动', '侯伟', '为深入贯彻落实学校第十一次党代会精神，不断将“两学一做”学习教育常态化制度化引向深入，根据组织部关于确定2019 年3月、4月组织生活中心内容的通知要求，计算机科学技术学院、软件学院学生党支部全体学生党员于2019年4月24日14:00在3号楼223教室开展“学规章制度，做合格党员”主题党日活动，活动由辅导员马瑞雪老师主持。会上，由候悦同学带领党员们通过集体学习、交流研讨等形式认真学习。', '2019年5月3日20时18分');
+INSERT INTO `post` VALUES (8, '计算机、软件学院开展“伴暖植树，四月迎春”植树活动', '侯伟', '钢筋水泥包裹着的慵懒冬天渐行渐远，阳光明媚的春日如约而至。春风吹新绿，植树正当时。为纪念五四运动100周年，弘扬“五四精神”，树立青春榜样，4月27日计算机科学技术学院、软件学院青年志愿者协会赴哈尔滨市松北区乐业镇杏林村开展主题为“伴暖植树，四月迎春”的植树活动。一场醒春活动，一片杨树林，一场温馨时光，就在此刻开启。\r\n\r\n\r\n\r\n\r\n上午八点半，志愿者们已经在黑龙江大学C区大门集合完毕，随后我们集体乘车去到植树点。经过一个多小时的漫长车程，我们终于来到了心心念念的植树地点。', '2019年5月3日20时19分');
+INSERT INTO `post` VALUES (11, '维护通知', '侯伟', '近期实验室新添加一批设备，射频识别实验室306以及物联网设备实验室进行维护，预计开放时间5月28日。', '2019年5月15日13时18分');
 
 -- ----------------------------
 -- Table structure for student
@@ -165,18 +165,13 @@ CREATE TABLE `student`  (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('100002', '4297f44b13955235245b2497399d7a93', '萨克1', 'm', '物联网二班');
-INSERT INTO `student` VALUES ('100003', '96e79218965eb72c92a549dd5a330112', '张胜1', 'f', '物联网一班');
-INSERT INTO `student` VALUES ('100004', '214ee6af0b493fb9b2f8cd854165d89f', '王五', 'm', '物联网二班');
-INSERT INTO `student` VALUES ('100005', '67b37e8ab1d150d720ce3bf1b466b5e4', '离开', 'm', '物联网一班');
-INSERT INTO `student` VALUES ('100006', '84fade60c3c351b6594e7f44b29e246f', 'lisa', 'f', '物联网二班');
-INSERT INTO `student` VALUES ('100007', '41123ca97afa0c925eab6f5ead91de67', '吼姆', 'm', '物联网一班');
-INSERT INTO `student` VALUES ('100008', 'c5f36b97b51ea3e7b4e09038ea4b96d3', '琪亚娜', 'f', '物联网二班');
-INSERT INTO `student` VALUES ('100009', '04b0cab3d8c4289346f5f9899e0e74c4', '芽衣', 'f', '物联网二班');
-INSERT INTO `student` VALUES ('100010', 'b56572c607fb98e3ec0587f2e555d3f3', '放电妹', 'f', '物联网一班');
-INSERT INTO `student` VALUES ('100011', '9b3b85f7f02a8ffc10ec28d06fd4f956', 'dkjf', 'f', '物联网二班');
-INSERT INTO `student` VALUES ('100012', '4297f44b13955235245b2497399d7a93', '22222', 'f', '物联网二班');
-INSERT INTO `student` VALUES ('100013', 'f7e0ef389ac6133c88aedbd66b44a4e1', '侯伟2', 'm', '物联网二班');
+INSERT INTO `student` VALUES ('100002', '4297f44b13955235245b2497399d7a93', '侯伟', 'm', '物联网二班');
+INSERT INTO `student` VALUES ('100003', '96e79218965eb72c92a549dd5a330112', '张玥', 'f', '物联网二班');
+INSERT INTO `student` VALUES ('100004', '214ee6af0b493fb9b2f8cd854165d89f', '马英坤', 'm', '物联网二班');
+INSERT INTO `student` VALUES ('100005', '67b37e8ab1d150d720ce3bf1b466b5e4', '周昊东', 'm', '物联网一班');
+INSERT INTO `student` VALUES ('100006', '84fade60c3c351b6594e7f44b29e246f', '张美欣', 'f', '物联网二班');
+INSERT INTO `student` VALUES ('100007', '41123ca97afa0c925eab6f5ead91de67', '周雨涵', 'm', '物联网一班');
+INSERT INTO `student` VALUES ('100008', '4297f44b13955235245b2497399d7a93', '张艺', 'f', '物联网二班');
 
 -- ----------------------------
 -- Table structure for teacher
@@ -197,5 +192,7 @@ CREATE TABLE `teacher`  (
 -- Records of teacher
 -- ----------------------------
 INSERT INTO `teacher` VALUES ('200000', '4297f44b13955235245b2497399d7a93', '侯伟', 'm', '物联网二班', 1);
+INSERT INTO `teacher` VALUES ('200001', '4297f44b13955235245b2497399d7a93', '徐辉', 'f', '物联网二班', 2);
+INSERT INTO `teacher` VALUES ('200002', '8f9cf3f5789e16124f38936954a98668', '滕冠龙', 'm', '物联网二班', 4);
 
 SET FOREIGN_KEY_CHECKS = 1;
