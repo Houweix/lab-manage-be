@@ -11,7 +11,7 @@
  Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 16/05/2019 14:47:04
+ Date: 16/05/2019 15:10:19
 */
 
 SET NAMES utf8mb4;
@@ -45,7 +45,7 @@ CREATE TABLE `class`  (
   `class` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班级名称',
   `course` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of class
@@ -56,6 +56,8 @@ INSERT INTO `class` VALUES (7, '物联网一班', '射频识别技术');
 INSERT INTO `class` VALUES (11, '物联网二班', '大学物理下');
 INSERT INTO `class` VALUES (16, '物联网二班', '射频识别技术');
 INSERT INTO `class` VALUES (17, '物联网二班', '计算机网络');
+INSERT INTO `class` VALUES (23, '物联网二班', '数据库技术');
+INSERT INTO `class` VALUES (24, '物联网一班', '大学物理下');
 
 -- ----------------------------
 -- Table structure for course
@@ -196,9 +198,10 @@ CREATE TABLE `teacher`  (
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES ('200000', '4297f44b13955235245b2497399d7a93', '侯伟', 'm', '物联网二班', 1);
+INSERT INTO `teacher` VALUES ('200000', '4297f44b13955235245b2497399d7a93', '赵延新', 'm', '物联网二班', 1);
 INSERT INTO `teacher` VALUES ('200001', '4297f44b13955235245b2497399d7a93', '徐辉', 'm', '物联网一班', 2);
-INSERT INTO `teacher` VALUES ('200002', '4297f44b13955235245b2497399d7a93', '滕冠龙', 'm', '物联网二班', 3);
+INSERT INTO `teacher` VALUES ('200002', '4297f44b13955235245b2497399d7a93', '李妍', 'f', '物联网二班', 3);
 INSERT INTO `teacher` VALUES ('200003', '4297f44b13955235245b2497399d7a93', '谭龙', 'm', '物联网二班', 6);
+INSERT INTO `teacher` VALUES ('200004', '4297f44b13955235245b2497399d7a93', '钟颖丽', 'f', '物联网二班', 4);
 
 SET FOREIGN_KEY_CHECKS = 1;
