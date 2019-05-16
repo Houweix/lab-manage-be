@@ -38,11 +38,6 @@ class CourseService extends Service {
     });
     const courseName = courseData[0].name;
 
-    // console.log('kaishi ------------');
-    // console.log(courseName);
-    // console.log('kaishi ------------');
-    // return;
-
     await this.app.mysql.delete('class', { course: courseName });
     await this.app.mysql.delete('grade', { course: courseName });
 
