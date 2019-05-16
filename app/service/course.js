@@ -33,7 +33,9 @@ class CourseService extends Service {
   async deleteCourse(data) {
     const { courseId } = data;
 
-    const courseData = await this.app.mysql.select('course', { where: { id: courseId } });
+    const courseData = await this.app.mysql.select('course', {
+      where: { id: courseId },
+    });
     const courseName = courseData[0].name;
 
     // console.log('kaishi ------------');
@@ -110,7 +112,6 @@ class CourseService extends Service {
     return result;
   }
 
-
   //  添加成绩
   async addGrade(data) {
     const { postData } = data;
@@ -145,6 +146,28 @@ class CourseService extends Service {
     return result;
   }
 
+  // 根据班级和课程删除关联记录
+  async deleteCourseByClass(data) {
+    const { className, courseName } = data;
+
+    console.log('---------');
+    console.log(data);
+
+    //  删除关联表
+    const result = await this.app.mysql.delete('class', {
+      class: className,
+      course: courseName,
+    });
+
+    //  删除成绩表
+    await this.app.mysql.delete('grade', {
+      class: className,
+      course: courseName,
+    });
+
+
+    return result;
+  }
 }
 
 module.exports = CourseService;

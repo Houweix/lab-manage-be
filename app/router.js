@@ -4,10 +4,7 @@
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  const {
-    router,
-    controller,
-  } = app;
+  const { router, controller } = app;
 
   // ! 以下是管理系统接口（教师，管理员）
 
@@ -51,7 +48,6 @@ module.exports = app => {
   //  删除
   router.post('/post/deleteData', controller.admin.deletePost);
 
-
   // !!课程相关------------------------------------
   // 获取全部课程
   router.get('/course/getAllData', controller.admin.getCourseData);
@@ -62,7 +58,6 @@ module.exports = app => {
   //  删除科课程
   router.post('/course/deleteData', controller.admin.deleteCourse);
 
-
   //  !!班级课程分配
   // 获取所有的班级
   router.get('/class/getClass', controller.admin.getClass);
@@ -71,11 +66,15 @@ module.exports = app => {
   //  为班级添加课程
   router.post('/class/addCourseByClass', controller.admin.addCourseByClass);
 
-
   //  !! 学生成绩相关
-  router.post('/grade/getFilterStudentData', controller.admin.getFilterStudentData);
+  router.post(
+    '/grade/getFilterStudentData',
+    controller.admin.getFilterStudentData
+  );
   // 根据班级获取学生
   router.post('/grade/getClassStudent', controller.admin.getClassStudent);
+  //  删除班级关联的课程
+  router.post('/grade/deleteCourseByClass', controller.admin.deleteCourseByClass);
   // 添加成绩
   router.post('/grade/addGrade', controller.admin.addGrade);
   // 编辑成绩

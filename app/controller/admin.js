@@ -857,6 +857,34 @@ class AdminController extends Controller {
       };
     }
   }
+
+  // 删除班级关联的课程
+  async deleteCourseByClass() {
+    const {
+      ctx,
+      service,
+    } = this;
+
+    const data = ctx.request.body;
+    console.log('收到的数据----');
+    console.log(data);
+
+    const result = await service.course.deleteCourseByClass(data);
+
+    if (result) {
+      ctx.body = {
+        msg: 'ok',
+        data: result,
+        retcode: 0,
+      };
+    } else {
+      ctx.body = {
+        msg: 'error',
+        data: [],
+        retcode: -1,
+      };
+    }
+  }
 }
 
 module.exports = AdminController;

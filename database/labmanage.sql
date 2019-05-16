@@ -11,7 +11,7 @@
  Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 15/05/2019 13:42:18
+ Date: 16/05/2019 11:27:55
 */
 
 SET NAMES utf8mb4;
@@ -33,8 +33,8 @@ CREATE TABLE `admin`  (
 -- Records of admin
 -- ----------------------------
 INSERT INTO `admin` VALUES ('20156386', '4297f44b13955235245b2497399d7a93', '侯伟');
-INSERT INTO `admin` VALUES ('20156387', '4297f44b13955235245b2497399d7a93', '邹浩');
-INSERT INTO `admin` VALUES ('20156388', '4297f44b13955235245b2497399d7a93', '滕冠龙');
+INSERT INTO `admin` VALUES ('20156388', '4297f44b13955235245b2497399d7a93', '宫兵');
+INSERT INTO `admin` VALUES ('20156389', '4297f44b13955235245b2497399d7a93', '金虎');
 
 -- ----------------------------
 -- Table structure for class
@@ -45,15 +45,15 @@ CREATE TABLE `class`  (
   `class` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班级名称',
   `course` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of class
 -- ----------------------------
 INSERT INTO `class` VALUES (1, '物联网二班', '大学物理上');
-INSERT INTO `class` VALUES (3, '物联网二班', '大学物理下');
 INSERT INTO `class` VALUES (4, '物联网一班', '大学物理上');
 INSERT INTO `class` VALUES (7, '物联网一班', '射频识别技术');
+INSERT INTO `class` VALUES (11, '物联网二班', '大学物理下');
 
 -- ----------------------------
 -- Table structure for course
@@ -92,7 +92,7 @@ CREATE TABLE `grade`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `t_grade_fk_1`(`student`) USING BTREE,
   INDEX `t_grade_fk_2`(`course`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生成绩表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生成绩表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of grade
@@ -102,7 +102,6 @@ INSERT INTO `grade` VALUES (2, '张玥', '物联网一班', '大学物理上', '
 INSERT INTO `grade` VALUES (3, '周昊东', '物联网二班', '大学物理上', '100');
 INSERT INTO `grade` VALUES (5, '侯伟', '物联网二班', '大学物理下', '99');
 INSERT INTO `grade` VALUES (6, '张艺', '物联网二班', '大学物理上', '85');
-INSERT INTO `grade` VALUES (7, '侯伟', '物联网二班', '数据库技术', '66');
 INSERT INTO `grade` VALUES (9, '马英坤', '物联网二班', '大学物理下', '80');
 
 -- ----------------------------
@@ -167,11 +166,11 @@ CREATE TABLE `student`  (
 -- ----------------------------
 INSERT INTO `student` VALUES ('100002', '4297f44b13955235245b2497399d7a93', '侯伟', 'm', '物联网二班');
 INSERT INTO `student` VALUES ('100003', '96e79218965eb72c92a549dd5a330112', '张玥', 'f', '物联网二班');
-INSERT INTO `student` VALUES ('100004', '214ee6af0b493fb9b2f8cd854165d89f', '马英坤', 'm', '物联网二班');
-INSERT INTO `student` VALUES ('100005', '67b37e8ab1d150d720ce3bf1b466b5e4', '周昊东', 'm', '物联网一班');
+INSERT INTO `student` VALUES ('100004', '214ee6af0b493fb9b2f8cd854165d89f', '马英坤', 'f', '物联网二班');
+INSERT INTO `student` VALUES ('100005', '67b37e8ab1d150d720ce3bf1b466b5e4', '周昊东', 'm', '物联网二班');
 INSERT INTO `student` VALUES ('100006', '84fade60c3c351b6594e7f44b29e246f', '张美欣', 'f', '物联网二班');
 INSERT INTO `student` VALUES ('100007', '41123ca97afa0c925eab6f5ead91de67', '周雨涵', 'm', '物联网一班');
-INSERT INTO `student` VALUES ('100008', '4297f44b13955235245b2497399d7a93', '张艺', 'f', '物联网二班');
+INSERT INTO `student` VALUES ('100008', '4297f44b13955235245b2497399d7a93', '周江琬', 'm', '物联网二班');
 
 -- ----------------------------
 -- Table structure for teacher
@@ -192,7 +191,7 @@ CREATE TABLE `teacher`  (
 -- Records of teacher
 -- ----------------------------
 INSERT INTO `teacher` VALUES ('200000', '4297f44b13955235245b2497399d7a93', '侯伟', 'm', '物联网二班', 1);
-INSERT INTO `teacher` VALUES ('200001', '4297f44b13955235245b2497399d7a93', '徐辉', 'f', '物联网二班', 2);
-INSERT INTO `teacher` VALUES ('200002', '8f9cf3f5789e16124f38936954a98668', '滕冠龙', 'm', '物联网二班', 4);
+INSERT INTO `teacher` VALUES ('200001', '4297f44b13955235245b2497399d7a93', '徐辉', 'm', '物联网一班', 2);
+INSERT INTO `teacher` VALUES ('200002', '4297f44b13955235245b2497399d7a93', '滕冠龙', 'm', '物联网二班', 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
