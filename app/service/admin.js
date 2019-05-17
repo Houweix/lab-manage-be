@@ -227,9 +227,7 @@ class AdminService extends Service {
     console.log(aCourse);
 
     r.forEach(elem => {
-      elem.course_id = aCourse.find(id => {
-        return id.id === elem.course_id;
-      }).name;
+      elem.course_id = aCourse.find(id => id.id === elem.course_id) ? aCourse.find(id => id.id === elem.course_id).name : '';
 
       console.log(elem.course_id);
     });
