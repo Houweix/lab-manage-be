@@ -11,7 +11,7 @@
  Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 16/05/2019 15:10:19
+ Date: 17/05/2019 11:23:07
 */
 
 SET NAMES utf8mb4;
@@ -45,7 +45,7 @@ CREATE TABLE `class`  (
   `class` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班级名称',
   `course` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of class
@@ -53,11 +53,9 @@ CREATE TABLE `class`  (
 INSERT INTO `class` VALUES (1, '物联网二班', '大学物理上');
 INSERT INTO `class` VALUES (4, '物联网一班', '大学物理上');
 INSERT INTO `class` VALUES (7, '物联网一班', '射频识别技术');
-INSERT INTO `class` VALUES (11, '物联网二班', '大学物理下');
 INSERT INTO `class` VALUES (16, '物联网二班', '射频识别技术');
-INSERT INTO `class` VALUES (17, '物联网二班', '计算机网络');
 INSERT INTO `class` VALUES (23, '物联网二班', '数据库技术');
-INSERT INTO `class` VALUES (24, '物联网一班', '大学物理下');
+INSERT INTO `class` VALUES (25, '物联网二班', '计算机网络');
 
 -- ----------------------------
 -- Table structure for course
@@ -73,16 +71,16 @@ CREATE TABLE `course`  (
   `week` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '上课周数',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `lab_id`(`lab_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '课程表，记录实验课程的信息' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '课程表，记录实验课程的信息' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES (1, '大学物理上', 5, '星期三、星期五', '9', '12', '3-5');
+INSERT INTO `course` VALUES (1, '大学物理上', 3, '星期三、星期五', '9', '12', '3-5');
 INSERT INTO `course` VALUES (2, '射频识别技术', 6, '星期四', '19', '21', '10-16');
-INSERT INTO `course` VALUES (3, '大学物理下', 5, '星期四', '13', '15', '3-5');
-INSERT INTO `course` VALUES (4, '数据库技术', 6, '星期二', '10', '12', '10-16');
+INSERT INTO `course` VALUES (4, '数据库技术', 7, '星期二', '10', '12', '10-16');
 INSERT INTO `course` VALUES (6, '计算机网络', 8, '星期一、星期三', '10', '12', '5-9');
+INSERT INTO `course` VALUES (7, '大学物理下', 5, '星期三', '10', '12', '1-10');
 
 -- ----------------------------
 -- Table structure for grade
@@ -97,7 +95,7 @@ CREATE TABLE `grade`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `t_grade_fk_1`(`student`) USING BTREE,
   INDEX `t_grade_fk_2`(`course`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生成绩表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生成绩表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of grade
@@ -105,13 +103,11 @@ CREATE TABLE `grade`  (
 INSERT INTO `grade` VALUES (1, '侯伟', '物联网二班', '大学物理上', '92');
 INSERT INTO `grade` VALUES (2, '张玥', '物联网一班', '大学物理上', '70');
 INSERT INTO `grade` VALUES (3, '周昊东', '物联网二班', '大学物理上', '100');
-INSERT INTO `grade` VALUES (5, '侯伟', '物联网二班', '大学物理下', '99');
 INSERT INTO `grade` VALUES (6, '张艺', '物联网二班', '大学物理上', '85');
-INSERT INTO `grade` VALUES (9, '马英坤', '物联网二班', '大学物理下', '80');
 INSERT INTO `grade` VALUES (11, '周昊东', '物联网一班', '射频识别技术', '99');
 INSERT INTO `grade` VALUES (12, '侯伟', '物联网二班', '射频识别技术', '79');
 INSERT INTO `grade` VALUES (13, '张玥', '物联网二班', '射频识别技术', '99');
-INSERT INTO `grade` VALUES (14, '侯伟', '物联网二班', '计算机网络', '80');
+INSERT INTO `grade` VALUES (15, '侯伟', '物联网二班', '计算机网络', '98');
 
 -- ----------------------------
 -- Table structure for lab
@@ -125,7 +121,7 @@ CREATE TABLE `lab`  (
   `seat` int(100) NULL DEFAULT NULL COMMENT '实验室座位数',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `lab_fk_1`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '实验室实体表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '实验室实体表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of lab
@@ -200,8 +196,8 @@ CREATE TABLE `teacher`  (
 -- ----------------------------
 INSERT INTO `teacher` VALUES ('200000', '4297f44b13955235245b2497399d7a93', '赵延新', 'm', '物联网二班', 1);
 INSERT INTO `teacher` VALUES ('200001', '4297f44b13955235245b2497399d7a93', '徐辉', 'm', '物联网一班', 2);
-INSERT INTO `teacher` VALUES ('200002', '4297f44b13955235245b2497399d7a93', '李妍', 'f', '物联网二班', 3);
 INSERT INTO `teacher` VALUES ('200003', '4297f44b13955235245b2497399d7a93', '谭龙', 'm', '物联网二班', 6);
 INSERT INTO `teacher` VALUES ('200004', '4297f44b13955235245b2497399d7a93', '钟颖丽', 'f', '物联网二班', 4);
+INSERT INTO `teacher` VALUES ('200005', '4297f44b13955235245b2497399d7a93', '李妍', 'f', '物联网二班', 7);
 
 SET FOREIGN_KEY_CHECKS = 1;
